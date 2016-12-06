@@ -1,0 +1,21 @@
+<ion-view view-title="Split Restaurant Bill">
+  <ion-content class="has-header has-footer">
+    <div class="list bills-list">
+      <a class="item item-text-wrap" ng-repeat="bill in bills | orderBy:date | orderBy:title" href="#/app/billDetails/{{bill.ID}}">
+        {{bill.title}}
+        <div class="notes row no-padding">
+          <span class="note col no-padding">{{bill.date}}</span>
+        </div>
+        <div class="item-note item-price">
+          <div class="balanced">{{bill.total}}</div>
+          <div class="dark title">Total</div>
+        </div>
+      </a>
+    </div>
+  </ion-content>
+  <a ui-sref="app.createBill" class="bar bar-footer bar-balanced">
+    <div class="title">
+      <i class="icon ion-ios-plus-empty"></i> CREATE NEW BILL TO SPLIT
+    </div>
+  </a>
+</ion-view>

@@ -1,0 +1,32 @@
+<ion-modal-view>
+  <ion-header-bar class="bar bar-dark">
+    <!-- <ion-nav-buttons side="left">
+    </ion-nav-buttons> -->
+    <button ng-click="closeModal();" class="button button-icon button-clear ion-android-arrow-back"></button>
+    <h1 class="title">Contributions</h1>
+  </ion-header-bar>
+
+  <ion-content class="bg-soft">
+    <div class="card card-full items-list" ng-repeat="contributer in bill.usersContributions | orderBy: ['name', '-amount']">
+      <div class="row padding">
+        <div class="col-75">
+          {{contributer.name}}
+          <div class="notes row no-padding">
+            <span class="note col no-padding">{{contributer.items}}</span>
+          </div>
+        </div>
+
+        <div class="col-25 no-padding">
+              <div class="item-note item-price">
+                <div class="balanced">{{contributer.amount | number }}</div>
+                <div class="dark title">Amount</div>
+              </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+
+  <ion-footer-bar>
+    <button ng-click="saveBill();" class="no-border button-block button-assertive">Save Bill</button>
+  </ion-footer-bar>
+</ion-modal-view>

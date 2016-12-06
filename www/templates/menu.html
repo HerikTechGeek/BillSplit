@@ -1,0 +1,54 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-dark">
+      <ion-nav-back-button></ion-nav-back-button>
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+      </ion-nav-buttons>
+      <ion-nav-buttons side="right">
+        <a ng-if="bill.isComplete" href="whatsapp://send?text=Hello%20World!" class="button button-icon button-clear ion-social-whatsapp-outline light"></a>
+        <!-- <button class="button button-icon button-clear ion-social-whatsapp-outline"> -->
+        <!-- </button> -->
+      </ion-nav-buttons>
+
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left">
+    <ion-content>
+      <ion-list>
+        <input type="search" placeholder="Search bills..." class="search" ng-model = "txtSearch" />
+        <label class="dark" ng-model="txtSearch"></label>
+
+        <ion-item class="padding-horizontal" menu-close ng-repeat="bill in bills | filter: {title : txtSearch} | orderBy: date | orderBy: title as filterResult track by bill.date">
+          <div class="list bills-list no-padding">
+            <!-- <a class="item item-text-wrap no-padding" href="#/app/billDetails/{{bill.date}}"> -->
+            <a href="javascript:void();" class="item item-text-wrap no-padding">
+              <div class="row">
+                <div class="col no-padding">
+                  {{bill.title}}
+                  <div class="notes row no-padding">
+                    <span class="note col no-padding">{{bill.date | date: 'medium'}}</span>
+                  </div>
+                </div>
+
+                <div class="col no-padding">
+                  <div class="item-note item-price">
+                    <div class="balanced">{{bill.grand_total | number }}</div>
+                    <div class="dark title">Total</div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+        </ion-item>
+        <ion-item ng-show="filterResult.length == 0">
+          <h2>No Restaurants found</h2>
+          with title <b>"{{txtSearch}}"</b>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

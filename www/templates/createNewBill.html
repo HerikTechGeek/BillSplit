@@ -1,0 +1,104 @@
+<ion-view view-title="{{viewTitle}}">
+  <ion-content class="has-header bg-soft">
+    <h4 class="fg-gray padding-horizontal margin-top">
+      Bill Details
+    </h4>
+
+    <div class="padding-bottom card card-full">
+      <form ng-submit="" class="padding-horizontal ">
+        <div class="row item no-border">
+          <div class="col">
+            <input ng-model="bill.title" class="ion-md-input" placeholder="Restaurant Name" highlight-color="balanced" type="text"></ion-md-input>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <input ng-model="bill.total_amount" class="ion-md-input dark" ng-currency placeholder="Bill Amount" highlight-color="balanced" type="number"></ion-md-input>
+          </div>
+        </div>
+        <div class="row" ng-if="bill.total_amount">
+          <div class="col">
+            <label ng-click="bill.total_tax_amount_label_show = 0; bill.total_tax_amount = bill.total_tax_amount_label" ng-init="bill.total_tax_amount_label_show = 1" ng-if="bill.total_tax_amount_label_show" class="item item-input item-md-label ng-not-empty ng-valid"
+                ng-model="bill.total_tax_amount_label" placeholder="Tax Amount" highlight-color="balanced" type="text">
+              <input type="text" class="md-input ng-pristine ng-valid ng-not-empty used ng-touched" ng-model="bill.total_tax_amount_label">
+              <span class="input-label" aria-label="Tax Amount" id="_label-2">Tax Amount</span>
+              <div class="highlight highlight-balanced"></div>
+            </label>
+
+            <input
+                class="ion-md-input"
+                ng-if="bill.total_tax_amount_label_show == 0"
+                ng-model="bill.total_tax_amount"
+                ng-focus="bill.total_tax_percentage_label_show = 1"
+                ng-blur="bill.total_tax_percentage = bill.total_tax_percentage_label;"
+                placeholder="Tax Amount"
+                highlight-color="balanced"
+                type="number"></ion-md-input>
+          </div>
+
+          <div class="col">
+            <label ng-init="bill.total_tax_percentage_label_show = 1" ng-click="bill.total_tax_percentage_label_show = 0; bill.total_tax_percentage = bill.total_tax_percentage_label" ng-if="bill.total_tax_percentage_label_show" class="item item-input item-md-label ng-not-empty ng-valid"
+                ng-model="bill.total_tax_percentage_label" placeholder="Tax Amount" highlight-color="balanced" type="text">
+              <input type="text" class="md-input ng-pristine ng-valid ng-not-empty used ng-touched" ng-model="bill.total_tax_percentage_label">
+              <span class="input-label" aria-label="Tax Percentage" id="_label-2">Tax Percentage</span>
+              <div class="highlight highlight-balanced"></div>
+            </label>
+
+            <ion-md-input ng-if="bill.total_tax_percentage_label_show == 0" ng-focus="bill.total_tax_amount_label_show = 1" ng-blur="bill.total_tax_amount = bill.total_tax_amount_label;" ng-model="bill.total_tax_percentage" placeholder="Tax Percentage" highlight-color="balanced"
+                type="number"></ion-md-input>
+          </div>
+        </div>
+      </form>
+    </div>
+
+        <div ng-if="bill.total_amount">
+
+    <h4 class="fg-gray padding-horizontal margin-top">Ordered Items ({{bill.items.length - 1}})
+      <span style="position:absolute;right:16px; font-size:12px; line-height:24px; display:inline-block;"
+        ng-click = "addBillNode();"
+        class="highlight-light">
+        <span style="" class="highlight">{{bill.sum_amount}}</span> / {{bill.total_amount + bill.total_tax_amount}}
+      </span>
+    </h4>
+
+          <div class="card card-full compact" ng-repeat="item in bill.items" ng-click="addBillNode($index)">
+            <i class="icon ion-android-close close-button"></i>
+            <div class="item row padding-horizontal no-padding-top">
+              <div class="col">
+                <ion-md-input ng-model="item.name" placeholder="Item Name" highlight-color="balanced" type="text"></ion-md-input>
+              </div>
+              <div class="col">
+                <ion-md-input
+                      ng-model="item.price" placeholder="Price" highlight-color="balanced"
+                      ng-change="onContributersUpdate($index); onItemPriceUpdate();" type="number"></ion-md-input>
+              </div>
+            </div>
+            <div class="row padding-horizontal">
+              <div class="col">
+                <ion-md-input ng-change="onContributersUpdate($index); onItemPriceUpdate();" ng-model="item.contributers" placeholder="Contributors" highlight-color="balanced" type="text"></ion-md-input>
+                <div class="small-note">
+                  <i class="ion-android-arrow-up"></i> Comma separated names
+                </div>
+                <!-- <ion-autocomplete ng-model="searchTags" items-method="getTags(query)" item-value-key="id" item-view-value-key="name" placeholder="Search tags" cancel-label="Cancel"/></ion-autocomplete> -->
+              </div>
+              <div class="col">
+                <label ng-if="item.perhead" class="item item-input item-md-label ng-not-empty ng-valid" ng-model="item.perhead" placeholder="Per Head" highlight-color="balanced" type="text">
+                  <input type="text" ng-disabled="true" class="md-input ng-pristine ng-valid ng-not-empty used ng-touched" ng-model="item.perhead">
+                  <span class="input-label" aria-label="Per Head">Per Head</span>
+                  <div class="highlight highlight-balanced"></div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-tab>
+    </ion-tabs>
+        <!-- <items-list></items-list> -->
+  </ion-content>
+  <ion-footer-bar>
+      <button ng-click="generateContributions();" class="no-border button-block button-balanced">
+        GENERATE CONTRIBUTIONS
+      </button>
+
+  </ion-footer-bar>
+</ion-view>

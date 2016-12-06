@@ -1,0 +1,28 @@
+<div>
+  <ion-list>
+    <ion-item ng-repeat="item in bill.items">
+      <div class="row">
+        <div class="col">{{item.name}}</div>
+        <div class="col">{{item.price}}</div>
+        <div class="col">{{item.contributers}}</div>
+      </div>
+    </ion-item>
+  </ion-list>
+</div>
+
+
+
+<div class="list animate-fade-slide-in-right">
+  <a class="item item-avatar item-icon-right waves-effect waves-button waves-dark in done" style="transition-delay: 0.51s;">
+    <img src="../img/jon-snow.jpg">
+    <h2>Jon Snow</h2>
+    <p>Da illest illegitimate</p>
+    <i class="icon ion-chatbubble muted"></i>
+  </a>
+  <a class="item item-avatar item-icon-right waves-effect waves-button waves-dark in" style="transition-delay: 0.59s;">
+    <img src="../img/daenerys.jpg">
+    <h2>Daenerys Targaryen</h2>
+    <p>Dragon mommy</p>
+    <i class="icon ion-chatbubble muted"></i>
+  </a>
+</div>
